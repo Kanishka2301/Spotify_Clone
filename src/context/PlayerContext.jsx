@@ -21,6 +21,18 @@ const PlayerContextProvider = ({ children }) => {
     },
   });
 
+  const [ratings, setRatings] = useState({
+    1: null,
+    2: null,
+    3: null,
+  });
+
+  const [comments, setComments] = useState({
+    1: [],
+    2: [],
+    3: [],
+  });
+
   const play = () => {
     audioRef.current.play();
     setPlayStatus(true);
@@ -44,6 +56,7 @@ const PlayerContextProvider = ({ children }) => {
       setPlayStatus(true);
     }
   };
+
   const next = async () => {
     if (track.id < songsData.length - 1) {
       await setTrack(songsData[track.id + 1]);
@@ -51,10 +64,27 @@ const PlayerContextProvider = ({ children }) => {
       setPlayStatus(true);
     }
   };
+
   const seekSong = async (e) => {
     audioRef.current.currentTime =
       (e.nativeEvent.offsetX / seekBg.current.offsetWidth) *
       audioRef.current.duration;
+  };
+
+  // Function to add a rating
+  const addRating = (id, rating) => {
+    setRatings((prevRatings) => ({
+      ...prevRatings,
+      [id]: rating,
+    }));
+  };
+
+  // Function to add a comment
+  const addComment = (id, comment) => {
+    setComments((prevComments) => ({
+      ...prevComments,
+      [id]: [...(prevComments[id] || []), comment],
+    }));
   };
 
   useEffect(() => {
@@ -94,6 +124,10 @@ const PlayerContextProvider = ({ children }) => {
     previous,
     next,
     seekSong,
+    ratings,
+    comments,
+    addRating,
+    addComment,
   };
 
   return (
