@@ -1,8 +1,11 @@
 import React from "react";
 import { assets } from "../assets/assets";
 import { useNavigate } from "react-router-dom";
+import { useTheme } from "../context/ThemeContext";
+
 const Navbar = () => {
   const navigate = useNavigate();
+  const { isDarkTheme, toggleTheme } = useTheme();
 
   return (
     <>
@@ -43,6 +46,11 @@ const Navbar = () => {
           Podcasts
         </p>
       </div>
+      <nav>
+        <button onClick={toggleTheme} className="theme-toggle-button">
+          {isDarkTheme ? "Light Mode" : "Dark Mode"}
+        </button>
+      </nav>
     </>
   );
 };
