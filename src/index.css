@@ -7,12 +7,12 @@
 }
 
 body.light-theme {
-  --background-color: #ffffff;
+  --background-color: black;
   --text-color: #000000;
 }
 
 body.dark-theme {
-  --background-color: #121212;
+  --background-color: white;
   --text-color: #ffffff;
 }
 

@@ -6,21 +6,18 @@ import AlbumnItem from "./AlbumnItem";
 import SongItem from "./SongItem";
 
 const DisplayHome = () => {
-  const { songList, ratings, comments, addRating, addComment } =
-    useContext(PlayerContext);
-  const [newComment, setNewComment] = useState("");
-  const [newRating, setNewRating] = useState("");
-  const [selectedSongId, setSelectedSongId] = useState(null);
+  const { songList } = useContext(PlayerContext);
 
-  const handleCommentSubmit = (id) => {
-    addComment(id, newComment);
-    setNewComment("");
-  };
-
-  const handleRatingSubmit = (id) => {
-    addRating(id, newRating);
-    setNewRating("");
-  };
+  const [ratings, setRatings] = useState({
+    1: 4.5,
+    2: 3.8,
+    3: 5.0,
+  });
+  const [comments, setComments] = useState({
+    1: ["Great song!", "Love the beat!"],
+    2: ["Not my style", "Interesting vibe"],
+    3: ["Perfect!"],
+  });
 
   return (
     <>
@@ -42,9 +39,9 @@ const DisplayHome = () => {
 
       <div className="mb-4">
         <h1 className="my-5 font-bold text-2xl">Today's Hits</h1>
-        <div className="flex flex-wrap overflow-auto">
+        <div className="flex overflow-auto">
           {songsData.map((item, index) => (
-            <div key={index} className="p-2">
+            <div key={index} className="mr-4">
               <SongItem
                 name={item.name}
                 desc={item.desc}
@@ -52,33 +49,11 @@ const DisplayHome = () => {
                 image={item.image}
               />
               <p className="text-white">
-                Rating: {ratings[item.id] || "No rating yet"}
+                Rating: {ratings[item.id] || "No rating"}
               </p>
               <p className="text-white">
                 {comments[item.id]?.length || 0} comments
               </p>
-
-              <input
-                type="number"
-                min="0"
-                max="5"
-                step="0.1"
-                placeholder="Rate (0-5)"
-                value={newRating}
-                onChange={(e) => setNewRating(e.target.value)}
-              />
-              <button onClick={() => handleRatingSubmit(item.id)}>
-                Submit Rating
-              </button>
-
-              <textarea
-                placeholder="Add a comment"
-                value={newComment}
-                onChange={(e) => setNewComment(e.target.value)}
-              />
-              <button onClick={() => handleCommentSubmit(item.id)}>
-                Submit Comment
-              </button>
             </div>
           ))}
         </div>
