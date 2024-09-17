@@ -5,18 +5,3 @@
 ::-webkit-scrollbar {
   display: none;
 }
-
-body.light-theme {
-  --background-color: black;
-  --text-color: #000000;
-}
-
-body.dark-theme {
-  --background-color: white;
-  --text-color: #ffffff;
-}
-
-body {
-  background-color: var(--background-color);
-  color: var(--text-color);
-}
